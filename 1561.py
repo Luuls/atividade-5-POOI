@@ -10,9 +10,19 @@ topLayer = \
 |   |                                    |   |\
 '''
 
+hoursLayerPlaceholder = \
+'''\
+|   |   {}         {}         {}         {}  |   |\
+'''
+
 middleLayer = \
 '''\
 |   |                                    |   |\n|   |                                    |   |\
+'''
+
+minutesLayerPlaceholder = \
+'''\
+|   |   {}     {}     {}     {}     {}     {}  |   |\
 '''
 
 bottomLayer = \
@@ -24,15 +34,7 @@ bottomLayer = \
 |____________________________________________|\n\
 '''
 
-hoursLayerPlaceholder = \
-'''\
-|   |   {}         {}         {}         {}  |   |\
-'''
 
-minutesLayerPlaceholder = \
-'''\
-|   |   {}     {}     {}     {}     {}     {}  |   |\
-'''
 while True:
     try:
         hours, minutes = input().split(':')
@@ -43,26 +45,15 @@ while True:
     hoursBin = f'{int(hours):04b}'
     minutesBin = f'{int(minutes):06b}'
 
-    hoursPlaceholder = hoursLayerPlaceholder.index('{}')
-    minutesPlaceholder = minutesLayerPlaceholder.index('{}')
-
     hoursLayerPlaceholderCopy = hoursLayerPlaceholder
     minutesLayerPlaceholderCopy = minutesLayerPlaceholder
     
     hoursLayerPlaceholderCopy = hoursLayerPlaceholderCopy.format(\
-            'o' if hoursBin[0] == '1' else ' ',
-            'o' if hoursBin[1] == '1' else ' ',
-            'o' if hoursBin[2] == '1' else ' ',
-            'o' if hoursBin[3] == '1' else ' '
+            *['o' if bit == '1' else ' ' for bit in hoursBin] 
             )
     
     minutesLayerPlaceholderCopy = minutesLayerPlaceholderCopy.format(\
-            'o' if minutesBin[0] == '1' else ' ',
-            'o' if minutesBin[1] == '1' else ' ',
-            'o' if minutesBin[2] == '1' else ' ',
-            'o' if minutesBin[3] == '1' else ' ',
-            'o' if minutesBin[4] == '1' else ' ',
-            'o' if minutesBin[5] == '1' else ' '
+            *['o' if bit == '1' else ' ' for bit in minutesBin]
             )
 
     print(topLayer)
